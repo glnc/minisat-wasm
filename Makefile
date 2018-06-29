@@ -35,7 +35,7 @@ minisat:
 	@echo "> Built MiniSat"
 
 minisat-patched: minisat-cloned
-	./patches/apply.sh
+	sh ./patches/apply.sh
 	@echo "> Patched MiniSat to be compatible with emscripten"
 
 minisat-cloned: clean-minisat
