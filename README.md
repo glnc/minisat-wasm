@@ -18,7 +18,8 @@ Invoke `make test` to build and test minisat-wasm.
 
 Invoke `make clean` to clean project.
 
-## MiniSat Original License
+## Original License(s)
+### MiniSat
 Copyright (c) 2003-2006, Niklas Een, Niklas Sorensson  
 Copyright (c) 2007-2010  Niklas Sorensson
 
