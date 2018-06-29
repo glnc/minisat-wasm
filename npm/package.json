@@ -1,0 +1,29 @@
+{
+	"name": "minisat-wasm",
+	"version": "1.0.0",
+	"description": "The MiniSat SAT solver compiled to WebAssembly using emscripten.",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/cbettinger/minisat-wasm.git"
+	},
+	"keywords": [
+		"minisat",
+		"sat",
+		"solver",
+		"dimacs",
+		"cnf",
+		"webassembly",
+		"wasm",
+		"emscripten"
+	],
+	"author": "Christian Bettinger <c.bettinger@hochschule-trier.de> (http://github.com/cbettinger)",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/cbettinger/minisat-wasm/issues"
+	},
+	"homepage": "https://github.com/cbettinger/minisat-wasm#readme"
+}
