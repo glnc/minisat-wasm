@@ -1,9 +1,11 @@
 # minisat-wasm
 Compile MiniSat to WebAssembly using emscripten.
 
-*Note*: This is a fork of https://github.com/jgalenson/research.js where we only care about the minisat directory.
-
 MiniSat (http://minisat.se) will be cloned from the original repository (https://github.com/niklasso/minisat) and patched in order to be compatible with emscripten. Most notably minisat-wasm will parse the DIMACS input from a string instead of a file.
+
+Tested on Ubuntu 18.04 LTS (native and within Windows Subsystem for Linux).
+
+*Note*: This is a fork of https://github.com/jgalenson/research.js where we only care about the MiniSat directory.
 
 ## Prerequisites
 * make
