@@ -22,14 +22,14 @@ usage:
 test: minisat-wasm
 	cd $(DIR_RELEASE) && $(NODE) $(FILENAME_TEST)
 
-minisat-wasm: minisat
+minisat-wasm: clean minisat
 	mkdir -p $(DIR_RELEASE)
 	cd $(DIR_MINISAT_RELEASE) && ln -s $(FILENAME_MINISAT) $(FILENAME_MINISAT).bc
 	$(EMCC) -O3 -s EXPORTED_FUNCTIONS='["_solve"]' -s 'EXTRA_EXPORTED_RUNTIME_METHODS=["ccall", "cwrap"]' -s TOTAL_MEMORY=67108864 -s TOTAL_STACK=26214400 $(DIR_MINISAT_RELEASE)/$(FILENAME_MINISAT).bc -o $(DIR_RELEASE)/$(FILENAME_RELEASE).js
 	cp $(FILENAME_TEST) $(DIR_RELEASE)
 	@echo "> Built minisat-wasm using emscripten"
 
-minisat:
+minisat: minisat-patched
 	cd $(DIR_MINISAT) && $(EMMAKE) make clean
 	cd $(DIR_MINISAT) && $(EMMAKE) make r
 	@echo "> Built MiniSat"
