@@ -62,6 +62,13 @@ SORELEASE?=.0#   Declare empty to leave out from library file name.
 MINISAT_CXXFLAGS = -I. -D __STDC_LIMIT_MACROS -D __STDC_FORMAT_MACROS -Wall -Wno-parentheses -Wextra
 MINISAT_LDFLAGS  = -Wall -lz
 
+ifdef EMMAKEN_COMPILER
+	CXX = emcc
+	MINISAT_CXXFLAGS += -s USE_ZLIB=1
+	MINISAT      = minisat.js
+	MINISAT_LDFLAGS += -s ALLOW_MEMORY_GROWTH=1 -s USE_ZLIB=1 -s INVOKE_RUN=0 -s FORCE_FILESYSTEM=1 -s EXIT_RUNTIME=1 --pre-js ../src_js/prerun.js -s MODULARIZE=1 -s 'EXPORT_NAME="minisat"' -s TOTAL_MEMORY=67108864 -s STACK_OVERFLOW_CHECK=0 -s ASSERTIONS=0
+endif
+
 ECHO=@echo
 ifeq ($(VERB),)
 VERB=@
@@ -198,7 +205,7 @@ install-bin: $(BUILD_DIR)/dynamic/bin/$(MINISAT)
 clean:
 	rm -f $(foreach t, release debug profile dynamic, $(foreach o, $(SRCS:.cc=.o), $(BUILD_DIR)/$t/$o)) \
           $(foreach t, release debug profile dynamic, $(foreach d, $(SRCS:.cc=.d), $(BUILD_DIR)/$t/$d)) \
-	  $(foreach t, release debug profile dynamic, $(BUILD_DIR)/$t/bin/$(MINISAT_CORE) $(BUILD_DIR)/$t/bin/$(MINISAT)) \
+	  $(foreach t, release debug profile dynamic, $(BUILD_DIR)/$t/bin/$(MINISAT_CORE) $(BUILD_DIR)/$t/bin/$(MINISAT) $(BUILD_DIR)/$t/bin/$(MINISAT).wast $(BUILD_DIR)/$t/bin/$(MINISAT).wasm $(BUILD_DIR)/$t/bin/$(MINISAT).js ) \
 	  $(foreach t, release debug profile, $(BUILD_DIR)/$t/lib/$(MINISAT_SLIB)) \
 	  $(BUILD_DIR)/dynamic/lib/$(MINISAT_DLIB).$(SOMAJOR).$(SOMINOR)$(SORELEASE)\
 	  $(BUILD_DIR)/dynamic/lib/$(MINISAT_DLIB).$(SOMAJOR)\
