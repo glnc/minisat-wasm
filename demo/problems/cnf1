@@ -1,0 +1,6 @@
+ c Here is a comment.
+ c source: https://dwheeler.com/essays/minisat-user-guide.html
+ p cnf 5 3
+ 1 -5 4 0
+ -1 5 3 4 0
+ -3 -4 0
