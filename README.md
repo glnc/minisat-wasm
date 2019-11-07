@@ -12,12 +12,12 @@ Tested on Ubuntu 18.04 LTS (within Windows Subsystem for Linux).
 Follow the instructions on https://kripken.github.io/emscripten-site/docs/getting_started/downloads.html in order to install emscripten and all of its dependencies.
 
 ## Building
-Invoke build.sh to build MiniSat with emscripten aswell as a js wrapper.
+Run `build.sh` to build MiniSat using emscripten as well as a JavaScript wrapper.
 
-Run './build.sh demo' to build a demo webpage. You shuld then serve the conents of /demo using a webserver and open the page with your browser.
+Run `build.sh demo` to additionally build a demo web app. You should then serve the contents of /demo using a webserver and open the page with your browser. 
 
 ## Usage
-MiniSat is build to the CommonJS module 'minisat'. To invoke MiniSat it's recommended to use the 'MiniSATWrapper' module, since it does some optimization regarding the memory consumtion. (*@TODO* Does it? Is this necessary?)
+MiniSat is build to the CommonJS module 'minisat'. To invoke MiniSat it's recommended to use the 'MiniSATWrapper' module, since it does some optimization regarding the memory consumption.
 
 ```js
 MiniSATWrapper = require('./MiniSATWrapper.js');
