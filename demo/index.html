@@ -1,16 +1,33 @@
-<!doctype html>
-<html lang=en-us>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset=utf-8>
-    <meta content="text/html; charset=utf-8" http-equiv=Content-Type>
-    <title>Demo for miniSAT in the browser</title>
-    <script src="./bundle.js"></script>
+	<meta charset="utf-8" />
+	<meta name="language" content="en" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>minisat-wasm</title>
+	<script defer src="./bundle.js"></script>
+	<style>
+		* { line-height: 1.25rem; }
+		body { display: flex; flex-direction: column; }
+		textarea { height: 20em; }
+		label:not(:first-of-type), button { margin-top: 2em; }
+		input, textarea { margin-top: 0.5em; }
+		label { font-weight: bold; }
+	</style>
 </head>
 <body>
-    <button id="btnTest">Test miniSAT</button>
-    <div id="divStatus" style="width: 10px; height: 10px; background-color: gray; display: inline-block;"></div><br>
-    <span>See console for details</span>
-</body>
+	<h1>minisat-wasm</h1>
 
+	<label for="input">DIMACS input</label>
+	<textarea id="input">p cnf 5 3
+1 -5 4 0
+-1 5 3 4 0
+-3 -4 0</textarea>
+
+	<label for="arguments">Command line arguments</label>
+	<input type="text" id="arguments" value="-verb=0">
+
+	<button id="run">Run</button>
+	<textarea id="output" disabled></textarea>
+</body>
 </html>

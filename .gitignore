@@ -1,6 +1,6 @@
-# generated files
-release/*
-
-# generated demo files
-demo/wasm/*
+# generated demo web app files
 demo/bundle.js
+demo/minisat.wasm
+
+# release build
+release/*

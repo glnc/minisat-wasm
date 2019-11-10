@@ -1,34 +1,34 @@
 #!/bin/sh
 
-# create needed folders if they dont exist already
-mkdir -p release
-mkdir -p demo/wasm
+echo "### Cleaning..."
 
-# clean demo
-rm ./demo/wasm/minisat.wasm
+# clean demo web app
 rm ./demo/bundle.js
+rm ./demo/minisat.wasm
 
-# clean
-rm ./release/MiniSATWrapper.js
+# clean release build
+mkdir -p release
+rm ./release/Wrapper.js
+
 cd ./src
 make clean
 
-# rebuild
+# build
+echo "\n### Building release build..."
 emmake make
+
 cd ..
-cp ./src_js/MiniSATWrapper.js ./release/MiniSATWrapper.js
+cp ./src_js/Wrapper.js ./release/Wrapper.js
 cp ./src/build/release/bin/minisat.js ./release/minisat.js
 cp ./src/build/release/bin/minisat.wasm ./release/minisat.wasm
-cp ./src/build/release/bin/minisat.wast ./release/minisat.wast
 
-# if demo, build demo with browserify
+# optionally build and run demo web app
 if [ -n "$1" -a "$1" = "demo" ]
 then
-    echo "build the demo"
-    cp ./src_js/demo.js ./release/demo.js
-    # browserify
-    browserify ./release/demo.js -o ./demo/bundle.js
-    cp ./release/minisat.wasm  ./demo/wasm/minisat.wasm
-    cp ./release/minisat.wast  ./demo/wasm/minisat.wast
-    rm ./release/demo.js
+	echo "\n### Building demo web app..."
+	cp ./release/minisat.wasm ./demo/minisat.wasm
+	browserify ./src_js/demo.js -o ./demo/bundle.js
+
+	echo "\n### Running demo web app..."
+	http-server ./demo
 fi

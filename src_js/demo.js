@@ -1,50 +1,23 @@
-let MiniSATWrapper = require('./MiniSATWrapper.js');
-window.addEventListener('load', windowReady, false);
+const MiniSat = require("../release/Wrapper.js");
 
-function windowReady() {
-    MiniSATWrapper.setWasmPath("/wasm/minisat.wasm");
-    document.getElementById("btnTest").addEventListener("click", runTests);
-}
+MiniSat.setModule(require("../release/minisat.js"));
+MiniSat.setWASM("./minisat.wasm");
 
-function runTests(){
-	assert("p cnf 3 2\n1 -3 0\n2 3 -1 0", "SAT").then(_=>{
-        return assert("c This is a comment line.\np cnf 3 2\n1 -3 0\n2 3 -1 0", "SAT");
-    }).then(_=>{
-        return assert("p cnf 1 2\n1 0\n-1 0", "UNSAT");
-    }).then(_=>{
-        return assert("Hello, world!", "");
-    }).then(_=>{
-        // all tests worked
-        document.getElementById("divStatus").style.backgroundColor = "green";
-    }).catch(reason=>{
-        // at least one test failed
-        document.getElementById("divStatus").style.backgroundColor = "red";
-    });
-}
+document.getElementById("run").addEventListener("click", () => {
+	document.getElementById("run").disabled = true;
 
-function assert(dimacs, expected) {
-    return MiniSATWrapper.run(dimacs).then(result=>{
-        let parsedResult = result[1].split('\n')[0];
-        console.log(`Got:      ${parsedResult}`);
-        console.log(`Expected: ${expected}`);
-        let success = (parsedResult === expected)
-        console.log(`Success:  ${success}`);
-        console.log("--------------------------------");
-        if(success){
-            return Promise.resolve();
-        } else{
-            return Promise.reject(`${parsedResult} !=== ${expected}`);
-        }
-    });
-}
+	let input = document.getElementById("input").value;
 
-window.runMiniSat = function(){
-    fetch("./problems/cnf1").then(response=>{
-        return response.text();
-    }).then(text=>{
-        return MiniSATWrapper.run(text);
-    }).then(result=>{
-        console.log(result[0]);
-        console.log(result[1]);
-    });
-}
+	let args = document.getElementById("arguments").value.split(" ");
+	if (args.length === 1 && args[0] === "") {
+		args = [];
+	}
+
+	MiniSat.run(input, args).then(result => {
+		document.getElementById("output").value = result;
+	}).catch(reason => {
+		document.getElementById("output").value = `Execution failed:\n\n${reason}`;
+	}).finally(() => {
+		document.getElementById("run").disabled = false;
+	});
+});
