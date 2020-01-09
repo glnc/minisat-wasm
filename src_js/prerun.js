@@ -64,8 +64,14 @@ function addRun () {
 		Module.MyStdout.clear();
 
 		FS.writeFile("input", input);
-		args.push("/input");
-		callMain(args);
+
+		let localArgs = [];
+		for (let i = 0; i < args.length; i++) {
+			localArgs[i] = args[i];
+		}
+
+		localArgs.push("/input");
+		callMain(localArgs);
 
 		Module.MyStdout.flush();
 
